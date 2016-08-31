@@ -9,7 +9,7 @@
 
 # arrays holding contigs are named C_1N, C_5N, C_10N, C_15N, C_20N, C_25N and C_ALL
 
-# we will call this awk script for all scaffolds where those scaffolds >= 1000, >= 500, >= 300
+# we will call this awk script for all scaffolds where those scaffolds are >= 1000, >= 500, >= 300
 declare -a arr=(0 1000 500 300)
 
 for Scaffold_Cutoff_Val in "${arr[@]}"
