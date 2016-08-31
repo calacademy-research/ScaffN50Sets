@@ -5,4 +5,4 @@ This is repository for a set of scripts to analyze the effect of different N cut
 ### Authorship
 
 code author: James B. Henderson, jhenderson@calacademy.org  
-README.md authors: Zachary R. Hanna, James Henderson  
+README.md authors: Zachary R. Hanna, James B. Henderson  
