@@ -24,7 +24,7 @@ usage: ScaffStructEx.py [-n <num>] [-all] <filename.fasta> <scaffold_name> [scaf
        E.g., ScaffStructEx.py *.fasta scaffold132
 ```
 
-### ScaffSplitN50s.sh options
+### ScaffSplitN50s.sh description
 $ head -n 12 ScaffSplitN50s.sh  
 ```
 #!/bin/bash
