@@ -23,6 +23,13 @@ usage: ScaffStructEx.py [-n <num>] [-all] <filename.fasta> <scaffold_name> [scaf
           -ALL same as -all but for every scaffold (you'll want to redirect output to a file)
        E.g., ScaffStructEx.py *.fasta scaffold132
 ```
+
+### ScaffSplitN50s.sh options
+$ head -n ScaffSplitN50s.sh  
+```
+
+```
+
 ### Authorship
 
 code author: James B. Henderson, jhenderson@calacademy.org  
