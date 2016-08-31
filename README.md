@@ -43,7 +43,8 @@ $ head -n 12 ScaffSplitN50s.sh
 # we will call this awk script for all scaffolds where those scaffolds are >= 1000, >= 500, >= 300
 ```
 
-### Authorship
+### Citing
+#### Authorship
 
 Code author: James B. Henderson, jhenderson@calacademy.org  
 README.md authors: Zachary R. Hanna, James B. Henderson  
