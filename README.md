@@ -25,9 +25,20 @@ usage: ScaffStructEx.py [-n <num>] [-all] <filename.fasta> <scaffold_name> [scaf
 ```
 
 ### ScaffSplitN50s.sh options
-$ head -n ScaffSplitN50s.sh  
+$ head -n 12 ScaffSplitN50s.sh  
 ```
+#!/bin/bash
+# script for awk to compute N50 for various contig split thresholds (ie number of consecutive N's)
+# also will extend to do the same set of extensions for those records >= 1000 and >= 500
 
+#input is file with each line referring to a scaffold with number of actg consec chars followed by number of N's etc.
+# e.g. 1256 23N 4566 12N 233 100N 586
+# above would have 2 contigs for C25N split, 3 for C20N split, 4 contigs for C10N split, and other N split arrays
+# input file is created from an assembly fasta file by scaffstruct_ex.py -ALL <asm_fasta_file>
+
+# arrays holding contigs are named C_1N, C_5N, C_10N, C_15N, C_20N, C_25N and C_ALL
+
+# we will call this awk script for all scaffolds those scaffs >= 1000, >= 500, >= 300
 ```
 
 ### Authorship
