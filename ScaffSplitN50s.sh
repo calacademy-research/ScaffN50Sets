@@ -2,6 +2,11 @@
 # script for awk to compute N50 for various contig split thresholds (ie number of consecutive N's)
 # also will extend to do the same set of extensions for those records >= 1000 and >= 500
 
+# 03Sep2016 changed to check if input file is a fasta file (by checking if first character is a ">")
+# and if it is then calls ScaffStructEx.py -ALL to create a file with Nbreaks extension
+# that then is the input file. If input <fname> is fasta and <fname>.Nbreaks exists use this
+# without creating it again
+
 #input is file with each line referring to a scaffold with number of actg consec chars followed by number of N's etc.
 # e.g. 1256 23N 4566 12N 233 100N 586
 # above would have 2 contigs for C25N split, 3 for C20N split, 4 contigs for C10N split, and other N split arrays
@@ -9,8 +14,20 @@
 
 # arrays holding contigs are named C_1N, C_5N, C_10N, C_15N, C_20N, C_25N and C_ALL
 
-# we will call this awk script for all scaffolds where those scaffolds are >= 1000, >= 500, >= 300
+# we will call this awk script for all scaffolds those scaffs >= 1000, >= 500, >= 300
 declare -a arr=(0 1000 500 300)
+
+NbreakFile=$1
+first_ch=$(head -1 $1 | cut -c1)
+if [ $first_ch == ">" ]; then
+    NbreakFile=$1.Nbreaks
+    if [ -e $NbreakFile ]; then
+        >&2 echo Using $NbreakFile
+    else
+        >&2 echo Creating $NbreakFile
+        ScaffStructEx.py -ALL $1 > $NbreakFile
+    fi
+fi
 
 for Scaffold_Cutoff_Val in "${arr[@]}"
 do
@@ -64,34 +81,34 @@ do
                         cur_contig_len += num_Ns
                 }
             }
-            
+
             scaffold_contig_len += cur_contig_len
             C_Ary[length(C_Ary)] = cur_contig_len
-    
+
             return scaffold_contig_len
         }
         function Calc_N50_set(total_sz) { # total_sz is different when excluding smaller scaffolds
             Calc_N50(C_ALL, length(C_ALL), total_sz) # N50 and L50 for scaffolds is in N50_L50_Values
             Prt_Inf("Scaffold N50 ", length(C_ALL), total_sz)
-            
+
             Calc_N50(C_25N, length(C_25N), tot_25N_sz) # N50 and L50 for contigs split at 25Ns
             Prt_Contig_Inf("25Ns", length(C_25N), tot_25N_sz)
-            
+
             Calc_N50(C_20N, length(C_20N), tot_20N_sz) # N50 and L50 for contigs split at 20Ns
             Prt_Contig_Inf("20Ns", length(C_20N), tot_20N_sz)
-                    
+
             Calc_N50(C_15N, length(C_15N), tot_15N_sz) # N50 and L50 for contigs split at 15Ns
             Prt_Contig_Inf("15Ns", length(C_15N), tot_15N_sz)
-                    
+
             Calc_N50(C_10N, length(C_10N), tot_10N_sz) # N50 and L50 for contigs split at 10Ns
             Prt_Contig_Inf("10Ns", length(C_10N), tot_10N_sz)
-                    
+
             Calc_N50(C_5N, length(C_5N), tot_5N_sz) # N50 and L50 for contigs split at 5Ns
             Prt_Contig_Inf(" 5Ns", length(C_5N), tot_5N_sz)
-                    
+
             Calc_N50(C_1N, length(C_1N), tot_1N_sz) # N50 and L50 for contigs split at a single N
             Prt_Contig_Inf("  1N", length(C_1N), tot_1N_sz)
-        }   
+        }
         function Calc_N50(C_Ary, lngth, tot_size) {
             N50_cutoff = int( (tot_size+1) / 2 )
             # print "N50 cutoff " N50_cutoff
@@ -114,5 +131,5 @@ do
         function Prt_Inf(typ, lngth, size) {
             print prefix typ N50_L50_Values[1] " L50 " N50_L50_Values[2] " out of " lngth " scaffolds in " size " bp"
         }
-    ' $1
+    ' $NbreakFile
 done
