@@ -9,6 +9,7 @@ ScaffSplitN50s.sh
 
 ### Usage
 $ git clone https://github.com/calacademy-research/ScaffSplitN50s.git  
+$ cd ScaffSplitN50s  
 \# Run "ScaffSplitN50s.sh" on a file in FASTA format to calculate continuity statistics  
 $ ScaffSplitN50s.sh \<assembly_scaffolds_file.fasta\>  
 \# The above will call ScaffStructEx.py to create a ".Nbreaks" file with a summary of the contig sizes and intervening runs of N's that is then used to calculate the reported assembly statistics
