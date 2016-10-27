@@ -65,7 +65,7 @@ usage: ScaffStructEx.py [-n <num>] [-all] <filename.fasta> <scaffold_name> [scaf
 ```
 
 ### ScaffSplitN50s.sh description
-$ head -n 17 ScaffSplitN50s.sh  
+$ head -n 21 ScaffSplitN50s.sh  
 ```
 #!/bin/bash
 # script for awk to compute N50 for various contig split thresholds (ie number of consecutive N's)
@@ -75,6 +75,10 @@ $ head -n 17 ScaffSplitN50s.sh
 # and if it is then calls ScaffStructEx.py -ALL to create a file with Nbreaks extension
 # that then is the input file. If input <fname> is fasta and <fname>.Nbreaks exists use this
 # without creating it again
+
+# 24Sep2016 start adding a feature to pass an genome size in so can calculate NG50
+# along with regular N50
+#
 
 #input is file with each line referring to a scaffold with number of actg consec chars followed by number of N's etc.
 # e.g. 1256 23N 4566 12N 233 100N 586
