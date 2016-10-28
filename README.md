@@ -135,4 +135,5 @@ $ head -n 21 ScaffSplitN50s.sh
 Code author: James B. Henderson, jhenderson@calacademy.org  
 README.md authors: Zachary R. Hanna, James B. Henderson  
 
+#### Version 1.0.0
 [![DOI](https://zenodo.org/badge/64879266.svg)](https://zenodo.org/badge/latestdoi/64879266)
