@@ -3,14 +3,18 @@
 # also will extend to do the same set of extensions for those records >= 1000 and >= 500
 
 # 03Sep2016 changed to check if input file is a fasta file (by checking if first character is a ">")
-# and if it is then calls ScaffStructEx.py -ALL to create a file with Nbreaks extension
+# and if it is then calls scaffstruct_ex.py -ALL to create a file with Nbreaks extension
 # that then is the input file. If input <fname> is fasta and <fname>.Nbreaks exists use this
 # without creating it again
+
+# 24Sep2016 start adding a feature to pass an genome size in so can calculate NG50
+# along with regular N50
+#
 
 #input is file with each line referring to a scaffold with number of actg consec chars followed by number of N's etc.
 # e.g. 1256 23N 4566 12N 233 100N 586
 # above would have 2 contigs for C25N split, 3 for C20N split, 4 contigs for C10N split, and other N split arrays
-# input file is created from an assembly fasta file by ScaffStructEx.py -ALL <asm_fasta_file>
+# input file is created from an assembly fasta file by scaffstruct_ex.py -ALL <asm_fasta_file>
 
 # arrays holding contigs are named C_1N, C_5N, C_10N, C_15N, C_20N, C_25N and C_ALL
 
@@ -25,19 +29,28 @@ if [ $first_ch == ">" ]; then
         >&2 echo Using $NbreakFile
     else
         >&2 echo Creating $NbreakFile
-        ScaffStructEx.py -ALL $1 > $NbreakFile
+        scaffstruct_ex.py -ALL $1 > $NbreakFile
     fi
+fi
+
+genome_size=0
+if [[ ! -z $2 && $2 > 0 ]]; then
+    genome_size=$2
 fi
 
 for Scaffold_Cutoff_Val in "${arr[@]}"
 do
-    awk  -v Scaffold_Cutoff="$Scaffold_Cutoff_Val" '
+    awk  -v Scaffold_Cutoff="$Scaffold_Cutoff_Val" -v genome_size="$genome_size" '
         BEGIN { FS = " "
-                prefix = "   "
-                if (Scaffold_Cutoff == 0)
-                    print "All Scaffolds"
-                else
+                prefix = "   "; szmsg = ""
+                if (Scaffold_Cutoff == 0) {
+                    if (genome_size > 0)
+                        szmsg = ". Genome size " genome_size " bp"
+                    print "All Scaffolds" szmsg
+                } else {
                     print "Scaffolds " Scaffold_Cutoff " bp or greater "
+                    genome_size = 0
+                }
         }
         {   # each line represents a scaffold and its runs of actg and Ns
             scaf_sz = 0; for(f=1;f<=NF;f++){ scaf_sz += int($f) }
@@ -111,25 +124,38 @@ do
         }
         function Calc_N50(C_Ary, lngth, tot_size) {
             N50_cutoff = int( (tot_size+1) / 2 )
+            NG50_cutoff = int( (genome_size+1) / 2); NG50 = 0; LG50 = 0 # 24Sep2016
             # print "N50 cutoff " N50_cutoff
             contigs_lens_sofar = 0; num_contigs = 0; N50_contig = 0
             for (i=lngth; i >= 1; i--) { # loop thru biggest contigs to smallest and stop when we are at N50_cutoff
                 contigs_lens_sofar += C_Ary[i]
                 num_contigs++
-                if (contigs_lens_sofar >= N50_cutoff) {
-                    N50_contig = C_Ary[i]
-                    break
+                if (genome_size > 0 && contigs_lens_sofar >= NG50_cutoff && NG50==0) {
+                    NG50 = C_Ary[i]
+                    LG50 = num_contigs
                 }
+                if (contigs_lens_sofar >= N50_cutoff && N50_contig==0) {
+                    N50_contig = C_Ary[i]
+                    L50_contig = num_contigs
+                }
+                if (N50_contig > 0 && (genome_size==0 || NG50 > 0))
+                    break
             }
-            N50_L50_Values[1] = N50_contig; N50_L50_Values[2] = num_contigs
+            N50_L50_Values[1] = N50_contig; N50_L50_Values[2] = L50_contig
             return N50_L50_Values[1]
         }
         function Prt_Contig_Inf(splitAtStr, lngth, size) {
+            ngmsg = ""
+            if (NG50 > 0)
+                ngmsg = " (NG50 " NG50 " LG50 " LG50 ")"
             typ = "Contigs Split at " splitAtStr
-            print prefix typ ": N50 "N50_L50_Values[1] " L50 " N50_L50_Values[2] " out of " lngth " contigs in " size " bp"
+            print prefix typ ": N50 "N50_L50_Values[1] " L50 " N50_L50_Values[2] " out of " lngth " contigs in " size " bp" ngmsg
        }
         function Prt_Inf(typ, lngth, size) {
-            print prefix typ N50_L50_Values[1] " L50 " N50_L50_Values[2] " out of " lngth " scaffolds in " size " bp"
+            ngmsg = ""
+            if (NG50 > 0)
+                ngmsg = " (NG50 " NG50 " LG50 " LG50 ")"
+            print prefix typ N50_L50_Values[1] " L50 " N50_L50_Values[2] " out of " lngth " scaffolds in " size " bp" ngmsg
         }
     ' $NbreakFile
 done

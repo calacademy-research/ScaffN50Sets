@@ -52,6 +52,45 @@ Scaffolds 300 bp or greater
    Contigs Split at   1N: N50 50425 L50 7228 out of 106823 contigs in 1259435266 bp
 ```
 
+### Example output with NG50 and LG50 when supplying estimated genome size
+estimated genome size = 1,400,000,000 base pairs (bp)  
+
+$ ScaffSplitN50s.sh Seq_SOAP_33_GapClosed_ge300.fa 1400000000
+```
+Using Seq_SOAP_33_GapClosed_ge300.fa.Nbreaks All Scaffolds. Genome size 1400000000 bp
+   Scaffold N50 3915799 L50 95 out of 48356 scaffolds in 1273290518 bp (NG50 3293697 LG50 112)
+   Contigs Split at 25Ns: N50 168721 L50 2109 out of 67949 contigs in 1259501544 bp (NG50 146649 LG50 2554)
+   Contigs Split at 20Ns: N50 164817 L50 2166 out of 68428 contigs in 1259490991 bp (NG50 143847 LG50 2622)
+   Contigs Split at 15Ns: N50 161269 L50 2220 out of 68909 contigs in 1259482799 bp (NG50 140031 LG50 2688)
+   Contigs Split at 10Ns: N50 156434 L50 2289 out of 69443 contigs in 1259476466 bp (NG50 136423 LG50 2772)
+   Contigs Split at  5Ns: N50 152072 L50 2344 out of 69967 contigs in 1259472826 bp (NG50 133796 LG50 2837)
+   Contigs Split at   1N: N50 50425 L50 7228 out of 106823 contigs in 1259435266 bp (NG50 44021 LG50 8721)
+Scaffolds 1000 bp or greater
+   Scaffold N50 3983020 L50 92 out of 8113 scaffolds in 1255568683 bp
+   Contigs Split at 25Ns: N50 171882 L50 2057 out of 27258 contigs in 1241846690 bp
+   Contigs Split at 20Ns: N50 167327 L50 2112 out of 27729 contigs in 1241836309 bp
+   Contigs Split at 15Ns: N50 163476 L50 2166 out of 28200 contigs in 1241828287 bp
+   Contigs Split at 10Ns: N50 159062 L50 2233 out of 28719 contigs in 1241822133 bp
+   Contigs Split at 5Ns: N50 155200 L50 2286 out of 29229 contigs in 1241818593 bp
+   Contigs Split at 1N: N50 51301 L50 7054 out of 65092 contigs in 1241782051 bp
+Scaffolds 500 bp or greater
+   Scaffold N50 3937821 L50 93 out of 17952 scaffolds in 1262291236 bp
+   Contigs Split at 25Ns: N50 170589 L50 2076 out of 37544 contigs in 1248502317 bp
+   Contigs Split at 20Ns: N50 166062 L50 2132 out of 38023 contigs in 1248491764 bp
+   Contigs Split at 15Ns: N50 162595 L50 2186 out of 38504 contigs in 1248483572 bp
+   Contigs Split at 10Ns: N50 158193 L50 2254 out of 39038 contigs in 1248477239 bp
+   Contigs Split at  5Ns: N50 153747 L50 2308 out of 39562 contigs in 1248473599 bp
+   Contigs Split at   1N: N50 50930 L50 7119 out of 76379 contigs in 1248436081 bp
+Scaffolds 300 bp or greater
+   Scaffold N50 3915799 L50 95 out of 48356 scaffolds in 1273290518 bp
+   Contigs Split at 25Ns: N50 168721 L50 2109 out of 67949 contigs in 1259501544 bp
+   Contigs Split at 20Ns: N50 164817 L50 2166 out of 68428 contigs in 1259490991 bp
+   Contigs Split at 15Ns: N50 161269 L50 2220 out of 68909 contigs in 1259482799 bp
+   Contigs Split at 10Ns: N50 156434 L50 2289 out of 69443 contigs in 1259476466 bp
+   Contigs Split at  5Ns: N50 152072 L50 2344 out of 69967 contigs in 1259472826 bp
+   Contigs Split at   1N: N50 50425 L50 7228 out of 106823 contigs in 1259435266 bp
+
+
 ### ScaffStructEx.py options
 $ python ScaffStructEx.py  
 ```
