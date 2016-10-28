@@ -136,4 +136,4 @@ Code author: James B. Henderson, jhenderson@calacademy.org
 README.md authors: Zachary R. Hanna, James B. Henderson  
 
 #### Version 1.0.0
-[![DOI](https://zenodo.org/badge/64879266.svg)](https://zenodo.org/badge/latestdoi/64879266)
+[![DOI](https://zenodo.org/badge/66876808.svg)](https://zenodo.org/badge/latestdoi/66876808)
