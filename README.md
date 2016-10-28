@@ -71,8 +71,8 @@ Scaffolds 1000 bp or greater
    Contigs Split at 20Ns: N50 167327 L50 2112 out of 27729 contigs in 1241836309 bp
    Contigs Split at 15Ns: N50 163476 L50 2166 out of 28200 contigs in 1241828287 bp
    Contigs Split at 10Ns: N50 159062 L50 2233 out of 28719 contigs in 1241822133 bp
-   Contigs Split at 5Ns: N50 155200 L50 2286 out of 29229 contigs in 1241818593 bp
-   Contigs Split at 1N: N50 51301 L50 7054 out of 65092 contigs in 1241782051 bp
+   Contigs Split at  5Ns: N50 155200 L50 2286 out of 29229 contigs in 1241818593 bp
+   Contigs Split at   1N: N50 51301 L50 7054 out of 65092 contigs in 1241782051 bp
 Scaffolds 500 bp or greater
    Scaffold N50 3937821 L50 93 out of 17952 scaffolds in 1262291236 bp
    Contigs Split at 25Ns: N50 170589 L50 2076 out of 37544 contigs in 1248502317 bp
@@ -89,7 +89,7 @@ Scaffolds 300 bp or greater
    Contigs Split at 10Ns: N50 156434 L50 2289 out of 69443 contigs in 1259476466 bp
    Contigs Split at  5Ns: N50 152072 L50 2344 out of 69967 contigs in 1259472826 bp
    Contigs Split at   1N: N50 50425 L50 7228 out of 106823 contigs in 1259435266 bp
-
+```
 
 ### ScaffStructEx.py options
 $ python ScaffStructEx.py  
